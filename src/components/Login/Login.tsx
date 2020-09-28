@@ -43,6 +43,8 @@ const Login: React.FC = () => {
                     timeout={300}
                     unmountOnExit
                     classNames={{
+                        appear: styles.AppearActive,
+                        appearDone: styles.Appeared,
                         enterActive: styles.InputEntering,
                         enterDone: styles.InputEntered,
                         exitActive: styles.InputClosing
