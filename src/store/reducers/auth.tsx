@@ -6,11 +6,13 @@ import { User } from '../../types';
 interface AuthState {
     user: User | null;
     loading: boolean;
+    error: string;
 }
 
 const initialState: AuthState = {
     user: null,
-    loading: false
+    loading: false,
+    error: ''
 }
 
 const authReducer = (state = initialState, action: AuthActions) => {
@@ -19,10 +21,14 @@ const authReducer = (state = initialState, action: AuthActions) => {
             return signInWithUsernameStartHelper(state);
         case actionTypes.SIGN_IN_USERNAME_SUCCESS:
             return signInWithUsernameSuccessHelper(state, action.payload);
+        case actionTypes.SIGN_IN_USERNAME_FAILED:
+            return signInWithUsernameFailedHelper(state, action.payload);
         case actionTypes.LOGOUT_USER_SUCCESS:
             return logoutUserSuccessHelper(state);
         case actionTypes.GET_USER_LOCAL_STORAGE_SUCCESS:
-            return getUserFromLocalStorage(state, action.payload && action.payload);
+            return getUserFromLocalStorage(state, action.payload);
+        case actionTypes.CLOSE_SNACKBAR:
+            return closeSnackbar(state);
         default:
             return state;
     }
@@ -33,7 +39,11 @@ const signInWithUsernameStartHelper = (state: AuthState): AuthState => {
 }
 
 const signInWithUsernameSuccessHelper = (state: AuthState, payload: User): AuthState => {
-    return updateObject(state, { user: payload, loading: false });
+    return updateObject(state, { user: payload, loading: false, error: '' });
+}
+
+const signInWithUsernameFailedHelper = (state: AuthState, payload: string): AuthState => {
+    return updateObject(state, { loading: false, error: payload });
 }
 
 const logoutUserSuccessHelper = (state: AuthState): AuthState => {
@@ -42,6 +52,10 @@ const logoutUserSuccessHelper = (state: AuthState): AuthState => {
 
 const getUserFromLocalStorage = (state: AuthState, payload: User | null): AuthState => {
     return updateObject(state, { user: payload });
+}
+
+const closeSnackbar = (state: AuthState): AuthState => {
+    return updateObject(state, { error: '' });
 }
 
 export default authReducer;
