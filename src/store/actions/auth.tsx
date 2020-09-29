@@ -14,10 +14,39 @@ export const signInWithUsernameSuccess = (user: User) => {
     return typedAction(actionTypes.SIGN_IN_USERNAME_SUCCESS, user);
 }
 
+export const signInWithUsernameFailed = (error: string) => {
+    return typedAction(actionTypes.SIGN_IN_USERNAME_FAILED, error);
+}
+
+export const logoutUser = () => {
+    return typedAction(actionTypes.LOGOUT_USER);
+}
+
+export const logoutUserSuccess = () => {
+    return typedAction(actionTypes.LOGOUT_USER_SUCCESS);
+}
+
+export const getUserFromLocalStorage = () => {
+    return typedAction(actionTypes.GET_USER_LOCAL_STORAGE);
+}
+
+export const getUserFromLocalStorageSuccess = (user: User | null) => {
+    return typedAction(actionTypes.GET_USER_LOCAL_STORAGE_SUCCESS, user);
+}
+
+export const closeSnackbar = () => {
+    return typedAction(actionTypes.CLOSE_SNACKBAR);
+}
 
 export type AuthActions =
     ReturnType<
         typeof signInWithUsername |
         typeof signInWithUsernameSuccess |
-        typeof signInWithUsernameStart
+        typeof signInWithUsernameStart |
+        typeof signInWithUsernameFailed |
+        typeof logoutUser |
+        typeof logoutUserSuccess |
+        typeof getUserFromLocalStorage |
+        typeof getUserFromLocalStorageSuccess |
+        typeof closeSnackbar
     >;

@@ -4,15 +4,19 @@
     justify-content: center;
 }
 
-.InputEntering {
+.FadeEnter {
     opacity: 0;
-    transform: scale(0.9);
 }
-.InputEntered {
+.FadeExit {
     opacity: 1;
-    transform: translateX(0);
-    transition: opacity 300ms, transform 300ms;
 }
-.InputClosing {
-    display: none !important;
+.FadeEnterActive {
+    opacity: 1;
+}
+.FadeExitActive {
+    opacity: 0;
+}
+.FadeEnterActive,
+.FadeExitActive {
+    transition: opacity 300ms;
 }
