@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './ChatRoom.module.scss';
 import SendIcon from '@material-ui/icons/Send';
 import { logoutUser } from '../../store/actions/auth';
 import { useDispatch } from 'react-redux';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
+import useChat from '../../hooks/useChat';
+import MessagesList from './MessagesList/MessagesList';
 
 interface Props {
     theme: string;
@@ -12,6 +14,8 @@ interface Props {
 }
 
 const ChatRoom: React.FC<Props> = ({ theme, toggleTheme }) => {
+    const { messages, sendMessage, user } = useChat();
+    const scrollToDummyDiv = useRef<HTMLDivElement>(null);
 
     const [message, setMessage] = useState('');
 
@@ -25,9 +29,16 @@ const ChatRoom: React.FC<Props> = ({ theme, toggleTheme }) => {
         }
     }
 
+    useEffect(() => {
+        scrollToDummyDiv.current?.scrollIntoView({
+            behavior: 'smooth'
+        });
+    }, [messages]);
+
     const submitMessage = (e: React.SyntheticEvent<EventTarget>) => {
         e.preventDefault();
         setMessage('');
+        sendMessage(message);
     }
 
     return (
@@ -40,7 +51,8 @@ const ChatRoom: React.FC<Props> = ({ theme, toggleTheme }) => {
             </header>
             <section className={styles.Section}>
                 <main className={styles.Main}>
-                    <div style={{ height: '1000px' }}></div>
+                    <MessagesList messages={messages} userId={user?._id && user._id} />
+                    <div ref={scrollToDummyDiv}></div>
                 </main>
                 <form className={styles.Form} onSubmit={submitMessage}>
                     <textarea
