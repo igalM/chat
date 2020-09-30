@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { signInWithUsername } from '../../store/actions/auth';
 import { selectSignInLoading } from '../../store/reducers/selectors';
 import { User } from '../../types';
-import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components'
 
 const Form = styled.form`
@@ -99,10 +98,7 @@ const Login: React.FC = () => {
     const connectToChatRoom = (e: React.SyntheticEvent<EventTarget>) => {
         e.preventDefault();
         setShowButton(true);
-        const newUser: User = {
-            id: uuidv4(),
-            username
-        }
+        const newUser: User = { username }
         signInUsername(newUser);
     }
 
