@@ -13,10 +13,8 @@ const useChat = () => {
 
     useEffect(() => {
 
-        // Creates a WebSocket connection
         socketRef.current = socketIOClient(BASE_URL);
 
-        // Listens for incoming messages
         socketRef.current.on(NEW_CHAT_MESSAGE_EVENT, (message: Message) => {
             setMessages((messages) => [...messages, message]);
         });
@@ -27,15 +25,11 @@ const useChat = () => {
 
         fetchLatestMessages();
 
-        // Destroys the socket reference
-        // when the connection is closed
         return () => {
             socketRef.current?.disconnect();
         };
     }, []);
 
-    // Sends a message to the server that
-    // forwards it to all users in the same room
     const sendMessage = (message: string) => {
         socketRef.current?.emit(NEW_CHAT_MESSAGE_EVENT, {
             user: user,
