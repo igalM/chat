@@ -122,7 +122,7 @@ const Login: React.FC = () => {
                     }}>
                     <Form onSubmit={(e) => connectToChatRoom(e)}>
                         <Input
-                            onChange={(e) => setUsername(e.target.value)}
+                            onChange={(e) => setUsername(e.target.value.trim())}
                             type="text"
                             placeholder="Username" />
                         <Button disabled={username === ''} type="submit">Let's Go!</Button>

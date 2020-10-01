@@ -9,7 +9,7 @@ import { rootReducer } from './store/reducers';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './store/sagas/index';
 
-const composeEnhancers = process.env.NODE_ENV === 'development' ? (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
+const composeEnhancers = (process.env.NODE_ENV === 'development' ? (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null) || compose;
 
 const sagaMiddleware = createSagaMiddleware();
 

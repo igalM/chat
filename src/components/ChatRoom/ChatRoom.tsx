@@ -7,6 +7,7 @@ import Brightness7Icon from '@material-ui/icons/Brightness7';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import useChat from '../../hooks/useChat';
 import MessagesList from './MessagesList/MessagesList';
+import { isMobile } from 'react-device-detect';
 
 interface Props {
     theme: string;
@@ -23,7 +24,9 @@ const ChatRoom: React.FC<Props> = ({ theme, toggleTheme }) => {
 
     const logoutCurrentUser = () => dispatch(logoutUser());
 
-    const textareaEnterPressed = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    const textareaEnterPressed = (e: React.KeyboardEvent) => {
+
+        if (isMobile) return;
         if (e.key === 'Enter' && !e.shiftKey) {
             submitMessage(e);
         }
@@ -37,8 +40,10 @@ const ChatRoom: React.FC<Props> = ({ theme, toggleTheme }) => {
 
     const submitMessage = (e: React.SyntheticEvent<EventTarget>) => {
         e.preventDefault();
+        if (message.trim() !== '') {
+            sendMessage(message);
+        }
         setMessage('');
-        sendMessage(message);
     }
 
     return (
