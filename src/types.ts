@@ -1,7 +1,8 @@
 export interface User {
     _id?: string;
     username: string;
-    // avatar: string;
+    avatar?: string;
+    online?: boolean;
 }
 
 export interface Message {
@@ -9,5 +10,8 @@ export interface Message {
     user: User;
     body: string;
     createdAt: number;
-    //avatar: string;
+}
+
+export interface OnlineUsers {
+    [id: string]: string;
 }

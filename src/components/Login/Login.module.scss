@@ -1,16 +1,24 @@
 .Login {
     margin-top: 100px;
+    .Form {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
-.InputEntering {
+.FadeEnter {
     opacity: 0;
-    transform: scale(0.9);
 }
-.InputEntered {
+.FadeExit {
     opacity: 1;
-    transition: opacity 300ms;
 }
-
-.InputClosing {
-    display: none !important;
+.FadeEnterActive {
+    opacity: 1;
+}
+.FadeExitActive {
+    opacity: 0;
+}
+.FadeEnterActive,
+.FadeExitActive {
+    transition: opacity 300ms;
 }

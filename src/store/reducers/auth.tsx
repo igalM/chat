@@ -12,7 +12,7 @@ interface AuthState {
 const initialState: AuthState = {
     user: null,
     loading: false,
-    error: ''
+    error: '',
 }
 
 const authReducer = (state = initialState, action: AuthActions) => {
@@ -26,9 +26,11 @@ const authReducer = (state = initialState, action: AuthActions) => {
         case actionTypes.LOGOUT_USER_SUCCESS:
             return logoutUserSuccessHelper(state);
         case actionTypes.GET_USER_LOCAL_STORAGE_SUCCESS:
-            return getUserFromLocalStorage(state, action.payload);
+            return getUserFromLocalStorageHelper(state, action.payload);
         case actionTypes.CLOSE_SNACKBAR:
-            return closeSnackbar(state);
+            return closeSnackbarHelper(state);
+        case actionTypes.FILE_VALIDATION_ERROR:
+            return fileValidationHelper(state);
         default:
             return state;
     }
@@ -50,11 +52,15 @@ const logoutUserSuccessHelper = (state: AuthState): AuthState => {
     return updateObject(state, { user: null });
 }
 
-const getUserFromLocalStorage = (state: AuthState, payload: User | null): AuthState => {
+const getUserFromLocalStorageHelper = (state: AuthState, payload: User | null): AuthState => {
     return updateObject(state, { user: payload });
 }
 
-const closeSnackbar = (state: AuthState): AuthState => {
+const fileValidationHelper = (state: AuthState): AuthState => {
+    return updateObject(state, { error: 'Only JPG/PNG files under 4MB allowed.' });
+}
+
+const closeSnackbarHelper = (state: AuthState): AuthState => {
     return updateObject(state, { error: '' });
 }
 

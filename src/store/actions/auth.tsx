@@ -34,6 +34,10 @@ export const getUserFromLocalStorageSuccess = (user: User | null) => {
     return typedAction(actionTypes.GET_USER_LOCAL_STORAGE_SUCCESS, user);
 }
 
+export const fileValidationError = () => {
+    return typedAction(actionTypes.FILE_VALIDATION_ERROR);
+}
+
 export const closeSnackbar = () => {
     return typedAction(actionTypes.CLOSE_SNACKBAR);
 }
@@ -48,5 +52,6 @@ export type AuthActions =
         typeof logoutUserSuccess |
         typeof getUserFromLocalStorage |
         typeof getUserFromLocalStorageSuccess |
+        typeof fileValidationError |
         typeof closeSnackbar
     >;
