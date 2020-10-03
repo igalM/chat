@@ -31,7 +31,7 @@ const ChatRoom: React.FC<Props> = ({ theme, toggleTheme }) => {
     const dispatch = useDispatch();
 
     const logoutCurrentUser = () => {
-        dispatch(logoutUser());
+        dispatch(logoutUser(user?._id ? user._id : ''));
         handleDialogClose();
     };
 

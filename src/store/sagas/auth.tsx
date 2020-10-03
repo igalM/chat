@@ -1,6 +1,6 @@
 import { call, delay, put, takeEvery } from 'redux-saga/effects';
 import * as actionTypes from '../actions/actionTypes';
-import { getUserFromLocalStorageSuccess, logoutUserSuccess, signInWithUsernameFailed, signInWithUsernameStart, signInWithUsernameSuccess } from '../actions/auth';
+import { getUserFromLocalStorageSuccess, logoutUser, logoutUserFailed, logoutUserSuccess, signInWithUsernameFailed, signInWithUsernameStart, signInWithUsernameSuccess } from '../actions/auth';
 import { userApi } from '../../api/user';
 import { User } from '../../types';
 
@@ -16,10 +16,15 @@ function* signInUsernameSaga(action: ReturnType<typeof signInWithUsernameSuccess
     }
 }
 
-function* logoutUserSaga() {
+function* logoutUserSaga(action: ReturnType<typeof logoutUser>) {
+    try {
+        yield call(() => userApi.deleteUser(action.payload));
+        yield put(logoutUserSuccess());
+    } catch (e) {
+        yield put(logoutUserFailed(e));
+    }
     yield call([localStorage, 'removeItem'], 'currentUser');
     yield delay(300);
-    yield put(logoutUserSuccess());
 }
 
 function* getUserFromLocalStorageSaga() {

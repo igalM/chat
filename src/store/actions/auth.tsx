@@ -18,12 +18,16 @@ export const signInWithUsernameFailed = (error: string) => {
     return typedAction(actionTypes.SIGN_IN_USERNAME_FAILED, error);
 }
 
-export const logoutUser = () => {
-    return typedAction(actionTypes.LOGOUT_USER);
+export const logoutUser = (id: string) => {
+    return typedAction(actionTypes.LOGOUT_USER, id);
 }
 
 export const logoutUserSuccess = () => {
     return typedAction(actionTypes.LOGOUT_USER_SUCCESS);
+}
+
+export const logoutUserFailed = (error: string) => {
+    return typedAction(actionTypes.LOGOUT_USER_FAILED, error);
 }
 
 export const getUserFromLocalStorage = () => {
@@ -53,5 +57,6 @@ export type AuthActions =
         typeof getUserFromLocalStorage |
         typeof getUserFromLocalStorageSuccess |
         typeof fileValidationError |
+        typeof logoutUserFailed |
         typeof closeSnackbar
     >;
