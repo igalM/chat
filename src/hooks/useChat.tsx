@@ -22,6 +22,7 @@ const useChat = () => {
 
 
         if (user) {
+            debugger;
             socketRef.current = socketIOClient(BASE_URL);
 
             socketRef.current.on(ChatEvent.NewMessage, (message: Message) => {

@@ -13,6 +13,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { IconButton } from '@material-ui/core';
+import Tooltip from '@material-ui/core/Tooltip';
 
 interface Props {
     theme: string;
@@ -72,9 +73,15 @@ const ChatRoom: React.FC<Props> = ({ theme, toggleTheme }) => {
         <div className={styles.ChatRoom}>
             <header className={styles.Header}>
                 <h2>{onlineUsers} Online</h2>
-                {/* {theme === 'light'
-                    ? <Brightness4Icon onClick={toggleTheme} />
-                    : <Brightness7Icon onClick={toggleTheme} />} */}
+                <div className={styles.ThemeToggle}>
+                    {theme === 'light'
+                        ? <Tooltip title="Toggle Dark Theme">
+                            <Brightness4Icon onClick={toggleTheme} />
+                        </Tooltip>
+                        : <Tooltip title="Toggle Light Theme">
+                            <Brightness7Icon onClick={toggleTheme} />
+                        </Tooltip>}
+                </div>
                 <IconButton className={styles.Menu} color="inherit" onClick={handleMenuClick}>
                     <MoreVertIcon />
                 </IconButton>
