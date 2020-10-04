@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 export const useDarkMode = () => {
     const [theme, setTheme] = useState('dark');
-    const [componentMounted, setComponentMounted] = useState(false);
 
     const setMode = (mode: string) => {
         window.localStorage.setItem('theme', mode)
@@ -23,10 +22,9 @@ export const useDarkMode = () => {
         } else {
             setMode('light');
         }
-        setComponentMounted(true);
     }, []);
 
     return {
-        theme, toggleTheme, componentMounted
+        theme, toggleTheme
     }
 };

@@ -14,7 +14,7 @@ import AlertBox from './components/UI/AlertBox/AlertBox';
 
 
 const App: React.FC = () => {
-  const { theme, toggleTheme, componentMounted } = useDarkMode();
+  const { theme, toggleTheme } = useDarkMode();
   const themeMode = theme === 'light' ? lightTheme : darkTheme;
 
   const isAuthenticated = useSelector(userExists);
@@ -28,9 +28,7 @@ const App: React.FC = () => {
     tryAutomaticSignin();
   }, [tryAutomaticSignin])
 
-  if (!componentMounted) {
-    return <div />
-  };
+
   return (
     <ThemeProvider theme={themeMode}>
       <GlobalStyles />
