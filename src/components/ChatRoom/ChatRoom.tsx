@@ -67,6 +67,16 @@ const ChatRoom: React.FC<Props> = ({ theme, toggleTheme }) => {
         handleMenuClose();
     }
 
+    const handleMobileFocus = () => {
+        if (isMobile) {
+            setTimeout(() => {
+                scrollToDummyDiv.current?.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }, 100)
+        }
+    }
+
     const onlineUsers = Object.keys(currentlyOnlineUsers).length;
 
     return (
@@ -107,6 +117,7 @@ const ChatRoom: React.FC<Props> = ({ theme, toggleTheme }) => {
                     <textarea
                         placeholder="Start typing here..."
                         value={message}
+                        onFocus={handleMobileFocus}
                         onKeyPress={e => textareaEnterPressed(e)}
                         onChange={e => setMessage(e.target.value)}
                         className={styles.Textarea}></textarea>

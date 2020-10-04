@@ -68,4 +68,28 @@
             }
         }
     }
+    @media (max-width: 900px) {
+        height: 100vh;
+        margin: 0;
+        .Header {
+            position: fixed;
+            height: 55px;
+        }
+        .Section {
+            margin-top: 55px;
+            height: calc(100vh - 55px);
+            .Main {
+                height: calc(100% - 70px);
+            }
+            .Form {
+                position: fixed;
+                bottom: 0;
+                height: 70px;
+                .Textarea {
+                    font-size: 16px;
+                    padding: 10px;
+                }
+            }
+        }
+    }
 }
