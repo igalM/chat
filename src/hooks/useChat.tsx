@@ -5,12 +5,17 @@ import { BASE_URL, ChatEvent } from "../consts";
 import { transformDateToUnix } from "../shared/utility";
 import { selectCurrentUser } from "../store/reducers/selectors";
 import { Message, OnlineUsers } from "../types";
+const notificationSound = require('../assets/notification-sound.mp3');
+
 
 const useChat = () => {
+    const [playing, setPlaying] = useState(false);
     const [messages, setMessages] = useState<Message[]>([]);
     const [currentlyOnlineUsers, setCurrentlyOnlineUsers] = useState<OnlineUsers>({});
 
     const user = useSelector(selectCurrentUser);
+
+    const audio = new Audio(notificationSound);
 
     const socketRef = useRef<SocketIOClient.Socket>();
 
@@ -20,12 +25,14 @@ const useChat = () => {
 
     useEffect(() => {
 
-
         if (user) {
 
             socketRef.current = socketIOClient(BASE_URL);
 
             socketRef.current.on(ChatEvent.NewMessage, (message: Message) => {
+                if (message.user._id !== user._id) {
+                    setPlaying(true);
+                }
                 setMessages((messages) => [...messages, message]);
             });
 
@@ -46,7 +53,17 @@ const useChat = () => {
         return () => {
             socketRef.current?.disconnect();
         };
-    }, [user, fetchLatestMessages]);
+    }, [user, playing, fetchLatestMessages]);
+
+    useEffect(() => {
+        if (playing) {
+            audio.play();
+        }
+        audio.addEventListener('ended', () => setPlaying(false));
+        return () => {
+            audio.removeEventListener('ended', () => setPlaying(false));
+        };
+    }, [audio, playing]);
 
     const sendMessage = (message: string) => {
         socketRef.current?.emit(ChatEvent.NewMessage, {

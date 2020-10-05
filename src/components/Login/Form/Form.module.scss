@@ -1,11 +1,23 @@
-.Input {
-    display: none;
-}
-
-.UploadButton {
+.Form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 400px;
-    height: 65px;
-    border-radius: 6.25em !important;
-    font-weight: 700 !important;
-    margin-top: 20px !important;
+    .Input {
+        display: none;
+    }
+    .ButtonContainer {
+        width: 100%;
+        .UploadButton {
+            width: 100%;
+            height: 65px;
+            border-radius: 6.25em !important;
+            font-weight: 700 !important;
+            margin-top: 20px !important;
+        }
+    }
+    @media (max-width: 700px) {
+        width: 85%;
+        margin: auto;
+    }
 }

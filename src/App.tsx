@@ -12,7 +12,6 @@ import { GlobalStyles } from './themes/global';
 import { useDarkMode } from './hooks/useDarkMode';
 import AlertBox from './components/UI/AlertBox/AlertBox';
 
-
 const App: React.FC = () => {
   const { theme, toggleTheme } = useDarkMode();
   const themeMode = theme === 'light' ? lightTheme : darkTheme;

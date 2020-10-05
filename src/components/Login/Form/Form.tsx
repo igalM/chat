@@ -5,7 +5,6 @@ import styled from 'styled-components'
 import { fileValidation } from '../../../shared/utility';
 
 const Container = styled.div`
-width: 400px;
 height: 65px;
 position: relative;
 padding: 0.625em;
@@ -118,7 +117,7 @@ const Form: React.FC<Props> = ({ submit, fileError }) => {
                 type="file"
                 onChange={handleFileChanged}
             />
-            <label htmlFor="contained-button-file">
+            <label className={styles.ButtonContainer} htmlFor="contained-button-file">
                 <Button
                     className={styles.UploadButton}
                     variant="contained"
