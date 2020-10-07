@@ -6,7 +6,7 @@ import { fileValidationError, signInWithUsername } from '../../store/actions/aut
 import { selectSignInLoading } from '../../store/reducers/selectors';
 import { User } from '../../types';
 import styled from 'styled-components'
-import Form from './Form/Form';
+import Form from '../../components/LoginForm/LoginForm';
 
 const Label = styled.label`
 border-radius: 6.25em;

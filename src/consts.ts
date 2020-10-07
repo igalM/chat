@@ -1,4 +1,4 @@
-export const BASE_URL = process.env.REACT_APP_API_URI || '';
+export const BASE_URL = process.env.REACT_APP_LOCALHOST || '';
 
 export enum ChatEvent {
     InitMessages = 'InitMessages',

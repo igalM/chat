@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect } from 'react';
 import styles from './App.module.scss';
-import Login from './components/Login/Login';
+import Login from './containers/Login/Login';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
-import ChatRoom from './components/ChatRoom/ChatRoom';
+import ChatRoom from './containers/ChatRoom/ChatRoom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectSignInError, userExists } from './store/reducers/selectors';
 import { getUserFromLocalStorage } from './store/actions/auth';

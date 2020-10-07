@@ -1,7 +1,7 @@
 import React from 'react';
-import { transformUnixToDateSent } from '../../../shared/utility';
 import { Message, OnlineUsers } from '../../../types';
-import styles from './MessagesList.module.scss';
+import { transformUnixToDateSent } from '../../../shared/utility';
+import styles from './MessagesItem.module.scss';
 import Badge from '@material-ui/core/Badge';
 import Avatar from '@material-ui/core/Avatar';
 import { Theme, withStyles, createStyles } from '@material-ui/core/styles';
@@ -37,12 +37,6 @@ const StyledBadge = withStyles((theme: Theme) =>
     }),
 )(Badge);
 
-
-interface ListProps {
-    messages: Message[];
-    currentlyOnlineUsers: OnlineUsers;
-    userId: string | undefined;
-}
 
 interface ItemProps {
     message: Message;
@@ -81,20 +75,4 @@ const MessageItem: React.FC<ItemProps> = ({ message, userId, currentlyOnlineUser
     );
 };
 
-const MessagesList: React.FC<ListProps> = ({ messages, userId, currentlyOnlineUsers }) => {
-    const content = messages.map((item, index) => (
-        <MessageItem
-            key={`${item._id}${index}`}
-            message={item}
-            userId={userId}
-            currentlyOnlineUsers={currentlyOnlineUsers}
-        />
-    ));
-    return (
-        <div className={styles.List}>
-            {content}
-        </div>
-    );
-}
-
-export default React.memo(MessagesList);
+export default MessageItem;

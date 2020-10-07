@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Button from '@material-ui/core/Button';
-import styles from './Form.module.scss';
+import styles from './LoginForm.module.scss';
 import styled from 'styled-components'
-import { fileValidation } from '../../../shared/utility';
+import { fileValidation } from '../../shared/utility';
 
 const Container = styled.div`
 height: 65px;
@@ -53,7 +53,7 @@ interface Props {
     fileError: () => void;
 }
 
-const Form: React.FC<Props> = ({ submit, fileError }) => {
+const LoginForm: React.FC<Props> = ({ submit, fileError }) => {
     const [username, setUsername] = useState('');
     const [file, setFile] = useState<File | null>(null);
     const [loadingFile, setLoadingFile] = useState(false);
@@ -130,4 +130,4 @@ const Form: React.FC<Props> = ({ submit, fileError }) => {
     );
 }
 
-export default Form;
+export default LoginForm;
