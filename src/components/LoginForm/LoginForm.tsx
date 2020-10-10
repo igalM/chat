@@ -15,7 +15,7 @@ box-shadow: 0 0.125em 0.3125em rgba(0, 0, 0, 0.3);
 display: flex;
 justify-content: center;
 border-radius: 6.25em;
-background-color: ${({ theme }) => theme.loginLabel};
+background-color: white;
 transition: 300ms;
 `;
 
@@ -29,12 +29,12 @@ box-sizing: border-box;
 height: 100%;
 width: 100%;
 padding: 0 0.714em;
-background-color: ${({ theme }) => theme.formInput};
-color: ${({ theme }) => theme.text};`;
+background-color: white;
+color: #1c1f25;`;
 
 const StyledButton = styled.button`
-background-color: ${({ theme }) => theme.formButton.background};
-color: ${({ theme }) => theme.formButton.color};
+background-color: #282c34;
+color: white;
 height: 100%;
 width: auto;
 font-size: 18px;

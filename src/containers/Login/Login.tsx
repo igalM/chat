@@ -10,7 +10,7 @@ import Form from '../../components/LoginForm/LoginForm';
 
 const Label = styled.label`
 border-radius: 6.25em;
-background-color: ${({ theme }) => theme.loginLabel};
+background-color: white;
 width: 200px;
 height: 65px;
 outline: 0;
