@@ -23,7 +23,6 @@ const authReducer = (state = initialState, action: AuthActions) => {
             return signInWithUsernameSuccessHelper(state, action.payload);
         case actionTypes.SIGN_IN_USERNAME_FAILED:
             return signInWithUsernameFailedHelper(state, action.payload);
-        case actionTypes.LOGOUT_USER_FAILED:
         case actionTypes.LOGOUT_USER_SUCCESS:
             return logoutUserSuccessHelper(state);
         case actionTypes.GET_USER_LOCAL_STORAGE_SUCCESS:

@@ -1,21 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import styles from './ChatRoom.module.scss';
-import SendIcon from '@material-ui/icons/Send';
 import { logoutUser } from '../../store/actions/auth';
 import { useDispatch } from 'react-redux';
 import useChat from '../../hooks/useChat';
 import MessagesList from '../../components/MessagesList/MessagesList';
 import { isMobile } from 'react-device-detect';
 import LogoutDialog from '../../components/UI/LogoutDialog/LogoutDialog';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { IconButton } from '@material-ui/core';
+import NewMessageForm from '../../components/NewMessageForm/NewMessageForm';
+import { OnlineUsers } from '../../types';
+import Header from '../../components/Header/Header';
+
+const calcOnlineUsers = (users: OnlineUsers) => Object.keys(users).length;
 
 const ChatRoom: React.FC = () => {
     const { messages, sendMessage, user, currentlyOnlineUsers } = useChat();
     const [showDialog, setShowDialog] = useState(false);
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
     const scrollToDummyDiv = useRef<HTMLDivElement>(null);
 
@@ -25,17 +24,17 @@ const ChatRoom: React.FC = () => {
 
     const logoutCurrentUser = () => {
         dispatch(logoutUser(user?._id ? user._id : ''));
-        handleDialogClose();
+        toggleDialog();
     };
-
-    const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => setAnchorEl(event.currentTarget);
-    const handleMenuClose = () => setAnchorEl(null);
 
     useEffect(() => {
         scrollToDummyDiv.current?.scrollIntoView({
             behavior: 'smooth'
         });
     }, [messages]);
+
+
+    const toggleDialog = () => setShowDialog(!showDialog);
 
     const textareaEnterPressed = (e: React.KeyboardEvent) => {
         if (isMobile) return;
@@ -52,13 +51,6 @@ const ChatRoom: React.FC = () => {
         setMessage('');
     }
 
-    const handleDialogClose = () => setShowDialog(false);
-
-    const handleLogoutClicked = () => {
-        setShowDialog(true);
-        handleMenuClose();
-    }
-
     const handleMobileFocus = () => {
         if (isMobile) {
             setTimeout(() => {
@@ -69,24 +61,14 @@ const ChatRoom: React.FC = () => {
         }
     }
 
-    const onlineUsers = Object.keys(currentlyOnlineUsers).length;
+    const onlineUsers = useMemo(() => calcOnlineUsers(currentlyOnlineUsers), [currentlyOnlineUsers]);
 
     return (
         <div className={styles.ChatRoom}>
-            <header className={styles.Header}>
-                <h2>{onlineUsers} Online</h2>
-                <IconButton className={styles.Menu} color="inherit" onClick={handleMenuClick}>
-                    <MoreVertIcon />
-                </IconButton>
-                <Menu
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={handleMenuClose}
-                >
-                    <MenuItem onClick={handleLogoutClicked}>Logout</MenuItem>
-                </Menu>
-            </header>
+            <Header
+                onlineUsers={onlineUsers}
+                onLogoutClicked={toggleDialog}
+            />
             <section className={styles.Section}>
                 <main className={styles.Main}>
                     <MessagesList
@@ -96,22 +78,17 @@ const ChatRoom: React.FC = () => {
                     />
                     <div ref={scrollToDummyDiv}></div>
                 </main>
-                <form className={styles.Form} onSubmit={submitMessage}>
-                    <textarea
-                        placeholder="Start typing here..."
-                        value={message}
-                        onFocus={handleMobileFocus}
-                        onKeyPress={e => textareaEnterPressed(e)}
-                        onChange={e => setMessage(e.target.value)}
-                        className={styles.Textarea}></textarea>
-                    {message !== '' && <button className={styles.Button} type="submit">
-                        <SendIcon fontSize="large" style={{ color: '#6649b8' }} />
-                    </button>}
-                </form>
+                <NewMessageForm
+                    message={message}
+                    onSubmit={e => submitMessage(e)}
+                    onFocus={handleMobileFocus}
+                    onEnterPressed={e => textareaEnterPressed(e)}
+                    onChange={e => setMessage(e)}
+                />
             </section>
             <LogoutDialog
                 show={showDialog}
-                handleClose={handleDialogClose}
+                handleClose={toggleDialog}
                 logout={logoutCurrentUser} />
         </div>
     );

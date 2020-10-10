@@ -22,7 +22,7 @@ const LogoutDialog: React.FC<Props> = ({ show, handleClose, logout }) => {
         </DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    If you log out all your data will be lost!
+                    If you log out you won't be able to login with this username!
         </DialogContentText>
             </DialogContent>
             <DialogActions>

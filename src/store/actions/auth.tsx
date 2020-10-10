@@ -26,10 +26,6 @@ export const logoutUserSuccess = () => {
     return typedAction(actionTypes.LOGOUT_USER_SUCCESS);
 }
 
-export const logoutUserFailed = (error: string) => {
-    return typedAction(actionTypes.LOGOUT_USER_FAILED, error);
-}
-
 export const getUserFromLocalStorage = () => {
     return typedAction(actionTypes.GET_USER_LOCAL_STORAGE);
 }
@@ -57,6 +53,5 @@ export type AuthActions =
         typeof getUserFromLocalStorage |
         typeof getUserFromLocalStorageSuccess |
         typeof fileValidationError |
-        typeof logoutUserFailed |
         typeof closeSnackbar
     >;
