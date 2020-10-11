@@ -27,7 +27,14 @@ const useChat = () => {
 
         if (user) {
 
-            socketRef.current = socketIOClient(BASE_URL);
+            socketRef.current = socketIOClient.connect(
+                `${BASE_URL}`,
+                {
+                    transports: ['websocket'],
+                    rejectUnauthorized: false,
+                    secure: true
+                }
+            )
 
             socketRef.current.on(ChatEvent.NewMessage, (message: Message) => {
                 if (message.user._id !== user._id) {
